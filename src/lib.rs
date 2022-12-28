@@ -1,45 +1,45 @@
 //! A string interner.
-//! 
+//!
 //! A string interner stores a pool of immutable strings keeping a single copy
-//! of each string value.  A [`Symbol`] is a wrapper over a pointer to 
+//! of each string value.  A [`Symbol`] is a wrapper over a pointer to
 //! one of these unique string values.  Symbols can be compared quickly (pointer
 //! rather than string comparisons) and are cheaper to store than strings when
 //! several occurrences of a given string exist.
-//! 
+//!
 //! # Examples
-//! 
+//!
 //! ```
 //! use stagiaire::Symbol;
-//! 
+//!
 //! // Create a new symbol.
 //! let a_foo = Symbol::new("foo");
 //! assert_eq!(a_foo.as_str(), "foo");
-//! 
+//!
 //! // Create another symbol that refers to an existing value.
 //! let another_foo = Symbol::new("foo");
 //! assert_eq!(a_foo, another_foo);
-//! 
+//!
 //! // Both symbols point to the same underlying value.
 //! assert_eq!(a_foo.as_str().as_ptr(), another_foo.as_str().as_ptr());
-//! 
+//!
 //! // A symbol has the same size as a reference.
 //! assert_eq!(std::mem::size_of::<Symbol>(), std::mem::size_of::<&str>());
-//! 
+//!
 //! // Symbols pointing to different values are not equal.
 //! let a_bar = Symbol::new("bar");
 //! assert_ne!(a_bar, a_foo);
 //! ```
-//! 
+//!
 //! # Lifetime
-//! 
+//!
 //! The interner is a process-wide singleton not exposed programmatically and
 //! string values stored there persist until the owning process terminates and
 //! have therefore a `'static` lifetime.
-//! 
+//!
 //! # Thread-safety
-//! 
+//!
 //! [`Symbol`] values can be created and accessed from multiple threads.
-//! 
+//!
 //! [`Symbol`]: struct.Symbol.html
 
 use std::collections::HashSet;
@@ -83,7 +83,7 @@ impl PartialEq for Symbol {
         self.inner.as_ptr() == other.inner.as_ptr()
     }
 }
-    
+
 impl Eq for Symbol {}
 
 // Implement mixed comparisons.
@@ -110,7 +110,7 @@ impl<'a> PartialEq<Symbol> for &'a str {
 }
 
 impl<'a> PartialEq<&'a str> for Symbol {
-    fn eq(&self, other: & &'a str) -> bool {
+    fn eq(&self, other: &&'a str) -> bool {
         self.inner[..] == other[..]
     }
 }
