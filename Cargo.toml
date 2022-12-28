@@ -2,6 +2,11 @@
 name = "stagiaire"
 version = "0.1.0"
 edition = "2021"
+license-file = "LICENSE"
+repository = "https://github.com/nthery/stagiaire"
+description = """
+Yet another string interner.
+"""
 
 [dependencies]
 lazy_static = "1.4.0"
