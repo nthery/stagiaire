@@ -1,6 +1,6 @@
 # Stagiaire
 
-This Rust crate provides a string interner.
+This Rust crate provides a [string interner](https://en.wikipedia.org/wiki/String_interning).
 
 Please refer to crate documentation for details.
 
