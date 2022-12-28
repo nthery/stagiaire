@@ -2,7 +2,7 @@
 name = "stagiaire"
 version = "0.1.0"
 edition = "2021"
-license-file = "LICENSE"
+license = "MIT"
 repository = "https://github.com/nthery/stagiaire"
 keywords = [ "string", "interning", "symbol" ]
 description = """
