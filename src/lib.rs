@@ -40,6 +40,12 @@
 //!
 //! [`Symbol`] values can be created and accessed from multiple threads.
 //!
+//! # Serialization
+//!
+//! A [`Symbol`] can optionally be serialized and deserialized using
+//! [serde](https://crates.io/crates/serde).  To enable this, build with the
+//! `serde` feature on.
+//!
 //! [`Symbol`]: struct.Symbol.html
 
 use std::collections::HashSet;
