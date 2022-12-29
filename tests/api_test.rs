@@ -64,3 +64,9 @@ fn symbol_is_sync() {
     fn assert_sync<T: Sync>() {}
     assert_sync::<Symbol>();
 }
+
+#[test]
+fn symbol_can_be_displayed() {
+    let sym = Symbol::new("foo");
+    assert_eq!(format!("{sym}"), "foo");
+}

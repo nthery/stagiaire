@@ -43,6 +43,7 @@
 //! [`Symbol`]: struct.Symbol.html
 
 use std::collections::HashSet;
+use std::fmt::Display;
 use std::hash::{Hash, Hasher};
 use std::sync::Mutex;
 
@@ -120,6 +121,12 @@ impl Hash for Symbol {
     /// pointed-to string content).
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.inner.as_ptr().hash(state);
+    }
+}
+
+impl Display for Symbol {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.as_str())
     }
 }
 
