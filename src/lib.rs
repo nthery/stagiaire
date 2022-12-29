@@ -48,6 +48,8 @@ use std::hash::{Hash, Hasher};
 use std::sync::Mutex;
 
 use lazy_static::lazy_static;
+#[cfg(serde)]
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 /// Wrapper over a reference to an interned string.
 ///
@@ -127,6 +129,27 @@ impl Hash for Symbol {
 impl Display for Symbol {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.as_str())
+    }
+}
+
+#[cfg(serde)]
+impl Serialize for Symbol {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_str(self.inner)
+    }
+}
+
+#[cfg(serde)]
+impl<'de> Deserialize<'de> for Symbol {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let s: String = Deserialize::deserialize(deserializer)?;
+        Ok(Symbol::new(s))
     }
 }
 

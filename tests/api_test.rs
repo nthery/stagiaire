@@ -70,3 +70,18 @@ fn symbol_can_be_displayed() {
     let sym = Symbol::new("foo");
     assert_eq!(format!("{sym}"), "foo");
 }
+
+#[cfg(serde)]
+#[test]
+fn serialize() {
+    let sym = Symbol::new("zorglub");
+    let json = serde_json::to_string(&sym).unwrap();
+    assert_eq!(json, r#""zorglub""#);
+}
+
+#[cfg(serde)]
+#[test]
+fn deserialize() {
+    let sym = serde_json::from_str::<Symbol>(r#""zorglub""#).unwrap();
+    assert_eq!(sym.as_str(), "zorglub")
+}
