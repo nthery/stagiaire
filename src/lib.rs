@@ -1,7 +1,7 @@
 //! A string interner.
 //!
 //! A string interner stores a pool of immutable strings keeping a single copy
-//! of each string value.  A [`Symbol`] is a wrapper over a pointer to
+//! of each string value.  A [Symbol] is a wrapper over a pointer to
 //! one of these unique string values.  Symbols can be compared quickly (pointer
 //! rather than string comparisons) and are cheaper to store than strings when
 //! several occurrences of a given string exist.
@@ -38,15 +38,13 @@
 //!
 //! # Thread-safety
 //!
-//! [`Symbol`] values can be created and accessed from multiple threads.
+//! [Symbol] values can be created and accessed from multiple threads.
 //!
 //! # Serialization
 //!
-//! A [`Symbol`] can optionally be serialized and deserialized using
+//! A [Symbol] can optionally be serialized and deserialized using
 //! [serde](https://crates.io/crates/serde).  To enable this, build with the
 //! `serde` feature on.
-//!
-//! [`Symbol`]: struct.Symbol.html
 
 use std::collections::HashSet;
 use std::fmt::Display;
